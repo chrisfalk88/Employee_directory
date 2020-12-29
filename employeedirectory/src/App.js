@@ -1,9 +1,12 @@
+import { Component } from "react"
 import Table from "react-bootstrap/Table";
+
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Container from 'react-bootstrap/Container'
 import "./App.css";
 
-function App() {
+class App extends Component {
+  render() {
   return (
     <div className="App">
       <Jumbotron fluid>
@@ -45,6 +48,7 @@ function App() {
       </Table>
     </div>
   );
+  }
 }
 
 export default App;
