@@ -1,8 +1,7 @@
 import { Component } from "react";
 import Table from "react-bootstrap/Table";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Container from "react-bootstrap/Container";
 import API from "./utils/API.js";
+import Jumbo from "./components/Jumbo.js"
 import "./App.css";
 
 class App extends Component {
@@ -23,12 +22,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Jumbotron fluid>
-          <Container>
-            <h1>Employee Tracking System v. 2.7</h1>
-            <p>something. all you base belong to us</p>
-          </Container>
-        </Jumbotron>
+        <Jumbo />
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
