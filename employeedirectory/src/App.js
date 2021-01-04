@@ -2,6 +2,7 @@ import { Component } from "react";
 import Table from "react-bootstrap/Table";
 import API from "./utils/API.js";
 import Jumbo from "./components/Jumbo.js"
+import TableSearch from "./components/TableSearch.js"
 import "./App.css";
 
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
     return (
       <div className="App">
         <Jumbo />
+        <TableSearch />
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
