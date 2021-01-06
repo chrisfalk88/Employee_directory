@@ -1,16 +1,17 @@
 import { Component } from "react";
 import Table from "react-bootstrap/Table";
+import Form from "react-bootstrap/Form";
 import API from "./utils/API.js";
-import Jumbo from "./components/Jumbo.js"
-import TableSearch from "./components/TableSearch.js"
+import Jumbo from "./components/Jumbo.js";
+import TableSearch from "./components/TableSearch.js";
 import "./App.css";
 
 class App extends Component {
+
   state = {
     search: "",
     results: [],
   };
-
   componentDidMount() {
     API.getUsers()
       .then((res) => {
@@ -25,6 +26,15 @@ class App extends Component {
       <div className="App">
         <Jumbo />
         <TableSearch />
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="text" placeholder="Enter email" />
+            <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text>
+          </Form.Group>
+        </Form>
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
@@ -37,7 +47,7 @@ class App extends Component {
           <tbody>
             {this.state.results.map((result, i) => (
               <tr>
-                <td>{i+1}</td>
+                <td>{i + 1}</td>
                 <td>{result.name.first}</td>
                 <td>{result.name.last}</td>
                 <td>{result.login.username}</td>
