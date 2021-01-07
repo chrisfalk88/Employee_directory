@@ -3,36 +3,65 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import API from "./utils/API.js";
 import Jumbo from "./components/Jumbo.js";
-import TableSearch from "./components/TableSearch.js";
 import "./App.css";
 
 class App extends Component {
-
   state = {
     search: "",
-    results: [],
+    firstName: "",
+    lastName: "",
+    username: "",
+    ogEmployees: [],
+    employees: [],
   };
   componentDidMount() {
     API.getUsers()
       .then((res) => {
         console.log(res.data);
-        this.setState({ results: res.data.results });
+        this.setState({
+          ogEmployees: res.data.results,
+          employees: res.data.results,
+        });
       })
       .catch((err) => console.log(err));
   }
+
+  handleInputChange = (event) => {
+    // Getting the value and name of the input which triggered the change
+    const value = event.target.value;
+    const name = event.target.name;
+
+    const filteredPeople = this.state.ogEmployees.filter(
+      (employee) =>
+        employee.name.first.toLowerCase().startsWith(value.toLowerCase()) ||
+        employee.name.last.toLowerCase().startsWith(value.toLowerCase())
+    );
+
+    // Updating the input's state
+    this.setState({
+      [name]: value,
+      employees: filteredPeople,
+    });
+  };
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+  };
 
   render() {
     return (
       <div className="App">
         <Jumbo />
-        <TableSearch />
-        <Form>
+        <Form onSubmit={this.handleFormSubmit}>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="text" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
+            <Form.Label>Search</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Search for a person"
+              onChange={this.handleInputChange}
+              name="search"
+              value={this.state.search}
+            />
           </Form.Group>
         </Form>
         <Table striped bordered hover size="sm">
@@ -45,12 +74,12 @@ class App extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.results.map((result, i) => (
-              <tr>
+            {this.state.employees.map((employee, i) => (
+              <tr key={i}>
                 <td>{i + 1}</td>
-                <td>{result.name.first}</td>
-                <td>{result.name.last}</td>
-                <td>{result.login.username}</td>
+                <td>{employee.name.first}</td>
+                <td>{employee.name.last}</td>
+                <td>{employee.login.username}</td>
               </tr>
             ))}
           </tbody>
