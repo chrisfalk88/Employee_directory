@@ -8,9 +8,6 @@ import "./App.css";
 class App extends Component {
   state = {
     search: "",
-    firstName: "",
-    lastName: "",
-    username: "",
     ogEmployees: [],
     employees: [],
   };
